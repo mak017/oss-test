@@ -1,0 +1,261 @@
+@import 'bourbon';
+@import 'compass';
+@import url('https://fonts.googleapis.com/css?family=Rokkitt:400,700');
+
+// Variables
+
+$main-bg: #ADA6A0;
+$border: #7C7773;
+$font-size: 0.9rem;
+$font-size-header: 1.2rem;
+
+// Mixins
+
+@mixin block {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: white;
+  border: 1px solid $border;
+  @include box-shadow(0 0 2px 1px $border);
+}
+
+// General styles
+
+@include global-reset;
+
+* {
+  @include box-sizing(border-box);
+}
+
+body {
+  position: relative;
+  padding: 0 5px;
+  background-color: $main-bg;
+  font: 16px/1.2em Rokkitt, Arial, Helvetica, sans-serif;
+}
+a {
+  color: inherit;
+}
+p {
+  font-size: $font-size;
+  line-height: 1;
+  text-align: justify;
+  text-indent: 35px;
+}
+.more {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  font-size: $font-size;
+}
+
+
+// Layout
+
+.container {
+  width: 100%;
+  max-width: 929px;
+  margin: 0 auto;
+  padding-top: 140px;
+}
+
+.logo {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  right: 0;
+  width: 80%;
+  max-width: 600px;
+  height: 300px;
+  margin: 0 auto;
+  font-size: 7rem;
+  text-align: center;
+  @include background-image(radial-gradient(farthest-side circle at 50% 0, white, $main-bg));
+  
+  span {
+    display: block;
+    margin-top: 95px;
+    color: #B5B3B0;
+  }
+  @media (max-width: 768px) {
+    height: 35vw;
+    min-height: 200px;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+header {
+  @include display-flex;
+  @include flex-flow(row wrap);
+  @include align-items(center);
+  @include block;
+  nav {
+    @include flex(2 1 410px);
+  }
+  ul {
+    @include display-flex;
+    @include flex-flow(row wrap);
+    max-width: 450px;
+
+    li {
+      @include flex(1);
+      padding: 0 25px;
+      color: #5B5B5B;
+      font-size: $font-size-header;
+      text-align: center;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  form {
+    margin-left: auto;
+
+    input {
+      width: 260px;
+      height: 30px;
+      padding: 2px 40px 0 5px;
+      background: url('../images/search-icon.png') 98% 50% no-repeat #FAFAFA;
+      border: 1px solid #ECECEC;
+      @include placeholder {
+        color: #DCDCDC;
+        font-size: $font-size-header;
+        font-style: italic;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    nav {
+      margin-bottom: 10px;
+    }
+    ul {
+      max-width: 100%;
+
+      li {
+        padding: 0;
+      }
+    }
+    form {
+      width: 100%;
+      margin-left: 0;
+      
+      input {
+        width: inherit;
+      }
+    }
+  }
+}
+
+.banner {
+  @include block;
+
+  img {
+    width: 100%;
+  }
+}
+
+.grid-blocks {
+  @include display-flex;
+  @include flex-flow(row wrap);
+  @include flex(1);
+  margin: 0 -5px;
+
+  div {
+    @include flex(1 1 180px);
+    margin: 0 5px;
+    @include block;
+    padding-bottom: 45px;
+  }
+  img {
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 205px;
+  }
+  
+}
+
+.welcome {
+  @include display-flex;
+  @include block;
+  padding-bottom: 0;
+
+  .pics {
+    @include display-flex;
+    @include flex-flow(row wrap);
+    @include flex(1);
+    @include align-content(flex-start);
+    margin-right: 1.1rem;
+    
+    div {
+      width: 50%;
+      height: 46%;
+      padding: 3px;
+      &:nth-of-type(1) {
+        @include order(4);
+      }
+      &:nth-of-type(2) {
+        @include order(2);
+      }
+      &:nth-of-type(3) {
+        @include order(1);
+      }
+      &:nth-of-type(4) {
+        @include order(3);
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .text {
+    @include flex(3 1 3%);
+    padding-bottom: 45px;
+  }
+  h2 {
+    margin-top: 3px;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  @media (max-width: 768px) {
+    @include flex-flow(column);
+    
+    .pics {
+      @include flex-flow(initial);
+      margin-right: 0;
+      margin-bottom: 10px;
+
+      div {
+        height: auto;
+      }
+    }
+  }
+}
+
+footer {
+  @include display-flex;
+  @include flex-flow(row wrap);
+  @include block;
+
+  >a {
+    text-decoration: none;
+    margin: 10px 5px 20px;
+  }
+  div {
+    padding: 10px 5px 20px;
+    text-align: center;
+    a {
+      text-decoration: none;
+    }
+  }
+  @media (max-width: 768px) {
+    @include justify-content(center);
+  }
+}

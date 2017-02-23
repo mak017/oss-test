@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OSS Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css"/>
+    <style>
+        label {
+            width: 100px;
+        }
+        label.error {
+            color: red;
+        }
+        input {
+            border : 1px solid #ccc;
+        }
+        input.error {
+            border-color: red;
+        }
+        .error-message {
+            position: relative;
+            left: 105px;
+            top: -5px;
+            font-weight: 700;
+            color: lightcoral;
+        }
+        .content {
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="content">
+                <form onsubmit="return myForm()" id="testForm">
+                    <div>
+                        <label for="firstName">First name</label>
+                        <input type="text" id="firstName"/>
+                    </div>
+
+                    <div>
+                        <label for="lastName">Last name</label>
+                        <input type="text" id="lastName"/>
+                    </div>
+
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" id="email"/>
+                    </div>
+
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function myForm() {
+
+        var firstName = document.getElementById('firstName'),
+            lastName = document.getElementById('lastName'),
+            email = document.getElementById('email'),
+            labels = document.getElementsByTagName('label');
+
+            for (var i = 0; i < labels.length; i++) {
+                if (labels[i].htmlFor != '') {
+                    var elem = document.getElementById(labels[i].htmlFor);
+                    if (elem)
+                        elem.label = labels[i];
+                }
+            }
+
+        function showError(container, errorMessage) {
+            var parent = container.parentNode;
+            parent.className = 'error';
+            var msgElem = document.createElement('div');
+            msgElem.className = "error-message";
+            msgElem.innerHTML = errorMessage;
+            parent.appendChild(msgElem);
+            container.classList.add('error');
+            container.label.classList.add('error');
+        }
+
+        function resetError(container) {
+            var parent = container.parentNode;
+            parent.className = '';
+            if (parent.lastChild.className == "error-message") {
+                parent.removeChild(parent.lastChild);
+            }
+            container.classList.remove('error');
+            container.label.classList.remove('error');
+        }
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        resetError(firstName);
+        if (!firstName.value) {
+            showError(firstName, 'Fill your first name, please');
+            return false;
+        }
+
+        resetError(lastName);
+        if (!lastName.value) {
+            showError(lastName, 'Fill your last name, please');
+            return false;
+        }
+
+        resetError(email);
+        if (!email.value) {
+            showError(email, 'Fill your email, please');
+            return false;
+        } else if (!validateEmail(email.value)) {
+            showError(email, 'Incorrect email');
+            return false;
+        }
+        alert('Form is valid. Thank you!');
+    }
+</script>
+
+</body>
+</html>
